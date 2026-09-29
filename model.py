@@ -88,8 +88,13 @@ def softmax_probabilities(logits):
 
     return exp_logits/jnp.sum(exp_logits, axis=-1, keepdims=True)
 
-# Step 12 - mlp_forward (not yet solved)
-# TODO: implement
+# Step 12 - mlp_forward
+def mlp_forward(params, x):
+    for layer in params[:-1]:
+        x = linear_forward(x, layer)
+        x = relu_activation(x)
+
+    return linear_forward(x, params[-1])
 
 # Step 13 - log_softmax_logits (not yet solved)
 # TODO: implement
