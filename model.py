@@ -60,7 +60,6 @@ def init_mlp_params(key, layer_sizes, scale=0.1):
     keys = split_prng_key(key, len(layer_sizes) - 1)
     layers = []
     for i in range(len(layer_sizes)-1):
-        # key = split_prng_key(key, 1)[0]
         layers.append(init_linear_layer(keys[i], 
                                         layer_sizes[i], 
                                         layer_sizes[i+1], 
