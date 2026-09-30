@@ -57,10 +57,11 @@ def init_linear_layer(key, in_dim, out_dim, scale=0.1):
 
 # Step 8 - init_mlp_params
 def init_mlp_params(key, layer_sizes, scale=0.1):
+    keys = split_prng_key(key, len(layer_sizes) - 1)
     layers = []
     for i in range(len(layer_sizes)-1):
-        key = split_prng_key(key, 1)[0]
-        layers.append(init_linear_layer(key, 
+        # key = split_prng_key(key, 1)[0]
+        layers.append(init_linear_layer(keys[i], 
                                         layer_sizes[i], 
                                         layer_sizes[i+1], 
                                         scale=scale))
@@ -115,8 +116,13 @@ def classification_accuracy(logits, labels):
     argmax = jnp.argmax(logits, axis=-1)
     return jnp.mean(argmax==labels)
 
-# Step 16 - loss_fn_of_params (not yet solved)
-# TODO: implement
+# Step 16 - loss_fn_of_params
+import jax
+import jax.numpy as jnp
+
+def loss_fn_of_params(params, x, one_hot_targets):
+    logits = mlp_forward(params, x)
+    return cross_entropy_loss(logits, one_hot_targets)
 
 # Step 17 - compute_param_grads (not yet solved)
 # TODO: implement
