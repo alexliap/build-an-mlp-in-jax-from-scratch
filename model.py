@@ -107,8 +107,13 @@ def cross_entropy_loss(logits, one_hot_targets):
     log_soft = log_softmax_logits(logits)
     return - jnp.mean(jnp.sum(one_hot_targets * log_soft, axis=-1))
 
-# Step 15 - classification_accuracy (not yet solved)
-# TODO: implement
+# Step 15 - classification_accuracy
+import jax.numpy as jnp
+
+def classification_accuracy(logits, labels):
+    """Fraction of rows where argmax(logits) equals the integer label."""
+    argmax = jnp.argmax(logits, axis=-1)
+    return jnp.mean(argmax==labels)
 
 # Step 16 - loss_fn_of_params (not yet solved)
 # TODO: implement
