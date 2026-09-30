@@ -162,6 +162,9 @@ def train_mlp(params, x, one_hot_targets, learning_rate, num_epochs):
 
     return params
 
-# Step 21 - predict_classes (not yet solved)
-# TODO: implement
+# Step 21 - predict_classes
+def predict_classes(params, x):
+    logits = mlp_forward(params, x)
+    probs = softmax_probabilities(logits)
+    return jnp.argmax(probs, axis=-1)
 
